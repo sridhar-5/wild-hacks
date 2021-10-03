@@ -13,7 +13,7 @@ const UserSchema = mongoose.Schema({
   username: {
     type: String,
     required: true,
-    minlength: 16,
+    minlength: 5,
     maxlength: 16,
     unique: true,
   },
@@ -35,12 +35,16 @@ const UserSchema = mongoose.Schema({
     minlength: 10,
     maxlength: 10,
   },
+  PetsAdopted: {
+    type: Number,
+    default: 0,
+  },
 });
 
 //method to create jwt token
 UserSchema.methods.GenerateJwtToken = function () {
   const token = jwt.sign(
-    { _id: this._id, username: this.username },
+    { _id: this._id.toString(), username: this.username },
     process.env.JWT_SECRET_KEY
   );
   return token;

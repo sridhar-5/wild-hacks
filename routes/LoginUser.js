@@ -1,10 +1,11 @@
-const express = require(express);
+const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcrypt");
+const { user } = require("../models/user");
 
 router.post("/", async (request, response) => {
   //check the database for the user
-  const CheckUser = await User.findOne({ username: request.body.username });
+  const CheckUser = await user.findOne({ username: request.body.username });
 
   //if user record is not available then responds as a bad request
   if (!CheckUser) {

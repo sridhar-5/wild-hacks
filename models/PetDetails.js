@@ -40,7 +40,7 @@ const PetSchema = mongoose.Schema({
   },
 });
 
-const PetModel = mongoose.model("pet-detail", UserSchema);
+const PetModel = mongoose.model("pet-detail", PetSchema);
 
 module.exports = {
   PetModel,
