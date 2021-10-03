@@ -9,6 +9,12 @@ app.get("/", (request, response) => {
 });
 ConnectDatabase();
 
+app.use("/", (request, respone) => {
+  response
+    .status(200)
+    .send("welcome to the team balckhats backend api for wildhacks");
+});
+
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {

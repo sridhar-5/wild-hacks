@@ -1,26 +1,22 @@
 //required driver
-const Sequelize = require("sequelize-cockroachdb");
-const fs = require("fs");
-
+const mongoose = require("mongoose");
 require("dotenv").config();
 
 //connecting to the database in this function
-function ConnectDatabase() {
-  var connection = new Sequelize({
-    dialect: "postgres",
-    username: process.env.USERNAME,
-    password: process.env.PASSWORD,
-    host: process.env.HOST,
-    port: 26257,
-    database: process.env.DATABASE_NAME,
-    dialectOptions: {
-      ssl: {
-        rejectUnauthorized: false,
-        //for secure connection importing the ca certi
-        ca: fs.readFileSync("root.crt").toString(),
-      },
-    },
-    logging: false,
+async function ConnectDatabase() {
+  var DatabaseConnection = mongoose.connect(
+    `mongodb+srv://${process.env.USERNAME}:${process.env.PASSWORD}@cluster0.fipzb.mongodb.net/${process.env.DATABASE_NAME}?retryWrites=true&w=majority`,
+    {
+      useNewUrlParser: true,
+    }
+  );
+
+  DatabaseConnection.then(() => {
+    console.log("connected to the database successfully....!");
+  });
+
+  DatabaseConnection.catch((error) => {
+    console.log(`Connection to the database refused...${error}`);
   });
 }
 
